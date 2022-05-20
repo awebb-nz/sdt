@@ -18,6 +18,9 @@ function [av_beliefs, av_beliefs_on, av_beliefs_off, av_beliefs_samp, av_beliefs
 % Nsig: number of signal states
 % 
 % OUTPUTS (many: see above)
+% av* outputs relate to ...
+% dprime* outputs relate to ...
+% Patton* outputs relate to ...
 
 % for when conditioning on cases where signal on
 weights_on = ons(Nadd+1:end-1,Nadd+1:end)/(1-ons(end,end));

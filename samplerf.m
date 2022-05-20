@@ -1,4 +1,4 @@
-function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_gauss(ps,T,O,a_opt,start,stopper,samples,interp,att_start,p_decay)
+function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf(ps,T,O,a_opt,start,stopper,samples,interp,att_start,p_decay)
 
 % many sample belief trajectories given optimal policy
 %
@@ -14,7 +14,6 @@ function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_gauss(ps,T,O,a
 % att_start: initial attentional state at start of trial (1=WEAK, 2=STRONG)
 % p_decay: probability of decay to WEAK at start of next trial, even if
 %               chose STRONG at decision state of previous trial
-% lesion: if true, then all observations are generated as if always in weak
 % attentional state, though not necessarily treated as such!
 %
 % OUTPUTS
@@ -28,8 +27,6 @@ function [nicebel,nicebel0,nicebel1,atts,p_atton,prs]=samplerf_v2_gauss(ps,T,O,a
 nSe=size(T,1);
 N=size(T,3); 
 nps=size(ps,1);
-
-psmunge=[ps' 0*ps'; 0*ps' ps'];
 
 nicebel = zeros(N+1,6,samples);
 nicebel1=zeros(N+1,6);
@@ -52,13 +49,7 @@ for trial=1:samples
         nicebel(t,(att-1)*nSe+(1:nSe),trial) = currentp;
         atts(trial,t) = (att-1);
         att = 1 + ( (1+rand(1)) < (fit(:,2)'*a_opt(nps*(att-1)+fit(:,1),t)) ); % sample attention
-%         if lesion
-%             obser = 1 + sum( rand(1) > cumsum(O{onoff(t)+1,1}) ); 
-%             obser = find( mnrnd(1,O{onoff(t)+1,1}) ); % if lesion, ALWAYS generated as if occupy weak state
-%         else
-           obser = 1 + sum( rand(1) > cumsum(O{onoff(t)+1,att}) ); 
-%              obser = find( mnrnd(1,O{onoff(t)+1,att}) );
-%         end
+        obser = 1 + sum( rand(1) > cumsum(O{onoff(t)+1,att}) ); 
         lik = [O{1,att}(obser) O{2,att}(obser) O{1,att}(obser)]; % BUT always treated as if observation were consistent with chosen attentional act
         currentp = (currentp.*lik);
         currentp = currentp/sum(currentp);

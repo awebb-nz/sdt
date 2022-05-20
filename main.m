@@ -62,7 +62,7 @@ if compute_alternative_policies
     
 end
 
-%% COMPUTE TRAJECTORIES GIVEN POLICY(S)
+%% COMPUTE TRAJECTORIES GIVEN POLICY(S) (See Figures 4 and ...)
 
 % for optimal policy
 [ beliefs, beliefs_samp, beliefs_samp0, beliefs_samp1, prs, prs_samp, Patton_samp ] = compute_trajectories(...
@@ -70,7 +70,7 @@ end
 
 if compute_alternative_policies
     
-    % for 'always weak', but with awareness of that fact
+    % for 'always weak', but with awareness of that fact, 'default' policy ("ACh lesion with awareness")
     [ beliefs_w, beliefs_samp_w, beliefs_samp0_w, beliefs_samp1_w, prs_w, prs_samp_w, Patton_samp_w ] = compute_trajectories(...
         a_w, a_opt_ch, imats, T, O, ps, p_decay, Nadd, Nsig, samples, interp );
     
@@ -96,14 +96,14 @@ end
 
 if compute_alternative_policies
     
-    % for 'always weak', 'default' policy ("ACh lesion with awareness")
+    % for 'always weak', but with awareness of that fact
     [av_beliefs_w, av_beliefs_on_w, av_beliefs_off_w, av_beliefs_samp_w, av_beliefs_on_samp_w, av_beliefs_off_samp_w,...
         av_beliefs_on0_samp_w, av_beliefs_on1_samp_w, av_beliefs_off0_samp_w, av_beliefs_off1_samp_w,...
         dprime_w, dprime_av_w, F_w, H_w, dprime_overall_w, crit_w, dprime_samp_w, dprime_av_samp_w, F_samp_w, H_samp_w, dprime_overall_samp_w, crit_samp_w,...
         Patton_overall_w, Patton_off_w, Patton_on_w] = ...
         get_results( beliefs_w, beliefs_samp_w, beliefs_samp0_w, beliefs_samp1_w, ons, prs_w, prs_samp_w, Patton_samp_w, Nadd, Nsig  );
     
-    % for 'always strong'
+    % for 'always strong', but with awareness of that fact
     [av_beliefs_s, av_beliefs_on_s, av_beliefs_off_s, av_beliefs_samp_s, av_beliefs_on_samp_s, av_beliefs_off_samp_s,...
         av_beliefs_on0_samp_s, av_beliefs_on1_samp_s, av_beliefs_off0_samp_s, av_beliefs_off1_samp_s,...
         dprime_s, dprime_av_s, F_s, H_s, dprime_overall_s, crit_s, dprime_samp_s, dprime_av_samp_s, F_samp_s, H_samp_s, dprime_overall_samp_s, crit_samp_s,...

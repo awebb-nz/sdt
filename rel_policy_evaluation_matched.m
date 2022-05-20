@@ -23,7 +23,6 @@ npstot=size(pstot,1);
 
 v = zeros(npstot,Ntot+2); % relative value of occupying each state at each timestep; +2 because of initial state and final state where decision made
 vnew = v;
-Q_att = zeros(npstot,Ntot+2,2); % value of attention action (WEAK(1) or STRONG(2)) at each state, and at each timestep
 Q_ch = zeros(npstot,2); % just applies to the choice of whether to report a signal or not
 % final reward : here we assume always 0,1 at the end
 Q_ch(:,1) = pstot(:,1); % report 'no signal'

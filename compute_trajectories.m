@@ -1,7 +1,7 @@
 function [ beliefs, beliefs_samp, beliefs_samp0, beliefs_samp1, prs, prs_samp, Patton_samp ] = compute_trajectories(...
                                                                 a_opt, a_opt_ch, imats, T, O, ps, p_decay, Nadd, Nsig, samples, interp )
 
-% take a policy, and work out what the trajectories are going to be like
+% take a policy, and work out what the trajectories (as described in ???) are going to be like
 
 % INPUTS
 % a_opt: the policy of interest

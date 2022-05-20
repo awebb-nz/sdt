@@ -27,7 +27,7 @@ vnew = v;
 Q_att = zeros(npstot,Ntot+2,2); % value of attention action (WEAK(1) or STRONG(2)) at each state, and at each timestep
 Q_ch = zeros(npstot,2); % just applies to the choice of whether to report a signal or not
 a_opt =  zeros(npstot,Ntot+2);
-% final reward : here we assume always 0,1 at the end
+% final reward : here we assume always 0,1 at the end because???
 Q_ch(:,1) = pstot(:,1); % report 'no signal'
 Q_ch(:,2) = (pstot(:,2)+pstot(:,3)); % report 'signal'
 [V_ch,a_opt_ch] = max( [Q_ch(:,1) Q_ch(:,2)], [], 2 );
@@ -40,7 +40,7 @@ id_start_high = nps + id_start_low;
 iter = 0;
 diff=100;
 r_av = 0;
-%fprintf('performing value iteration....\n\n')
+fprintf('performing value iteration....\n\n')
 while iter<max_iter && diff>tol
     iter = iter+1;
     Q_att(:,end,1) = rho(:,1) + v(id_start_low,1); % choose WEAK at final step
@@ -58,7 +58,8 @@ while iter<max_iter && diff>tol
     if max_iter>1 % NB: only if we're solving for the average reward case
         vnew = vnew - vnew(id_start_low);
     end
-    diff = max(max(abs(vnew-v)));
+
+    diff = max(abs(vnew-v),[], 'all');
     v = vnew;
-    %fprintf('iter %d, r_av = %6.2f, diff = %6.2f\n', iter, r_av(iter+1), diff);
+    fprintf('iter %d, r_av = %6.2f, diff = %6.2f\n', iter, r_av(iter+1), diff);
 end
